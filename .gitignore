@@ -6,3 +6,11 @@ temp/
 
 # ignore executables
 a.out
+
+# ignore .vscode
+.vscode
+
+# and file
+.vscode/
+
+
