@@ -6,7 +6,7 @@
 /*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/01/26 17:22:42 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:23:57 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_printf(const char *, ...)
 {
 
-
+	//git test
 
 
 	return (0);
