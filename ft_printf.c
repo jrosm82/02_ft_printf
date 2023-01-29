@@ -6,7 +6,7 @@
 /*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/01/28 11:10:46 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/01/28 16:02:23 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,54 @@ int	ft_putstr(char *s)
 	return (cnt);
 }
 
+static int	int_len(int nbr)
+{
+	int	pos;
+
+	pos = 0;
+	if (nbr == -2147483648)
+		return (10);
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
+	{
+		pos++;
+		nbr = nbr * -1;
+	}
+	while (nbr > 0)
+	{
+		nbr = nbr / 10;
+		pos++;
+	}
+	return (pos);
+}
+
+void	ft_putint(int n)
+{
+	if (n == -2147483648)
+	{
+		ft_putchar('-');
+		ft_putchar('2');
+		n = 147483648;
+	}
+	if (n < 0)
+	{
+		ft_putchar('-');
+		n = n * -1;
+	}
+	if (n >= 10)
+	{
+		ft_putint(n / 10);
+		ft_putint(n % 10);
+	}
+	else
+		ft_putchar(n + '0');
+}
+
 int	pnt_decide(char c, va_list ap)
 {
 	int	prn_cnt;
-
+	int	n;
 
 	prn_cnt = 0;
 	if (c == 'c') // Prints a single character.
@@ -43,11 +87,13 @@ int	pnt_decide(char c, va_list ap)
 	else if (c == 's') // Prints a string (as defined by the common C convention).
 		prn_cnt += ft_putstr(va_arg(ap, char *));
 	else if (c == 'p') // The void * pointer argument has to be printed in hexadecimal format
-		c = c;
-	else if (c == 'd') // Prints a decimal (base 10) number.
-		c = c;
-	else if (c == 'i') // Prints an integer in base 10.
-		c = c;
+		c = c;	
+	else if (c == 'i' || c == 'd') // Prints an integer in base 10.
+	{
+		n = va_arg(ap, int);
+		prn_cnt += int_len(n);
+		ft_putint(n);
+	}
 	else if (c == 'u') // Prints an unsigned decimal (base 10) number.
 		c = c;
 	else if (c == 'x') // Prints a number in hexadecimal (base 16) lowercase format
@@ -100,10 +146,17 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	printf("%d",ft_printf("*%c*%s%r rc%%=", 'A',"aa"));
+	int	pnt = 2147483647;
+
+	int	*ptr = &pnt;
+
+	printf("%d",ft_printf("*%c**%d**%i**%s%r rc%%=", 'A',pnt, pnt, "aa"));
 	printf("\n");
+	   printf("%d",printf("*%c**%d**%i**%s%r rc%%=", 'A',pnt, pnt, "aa"));
 	printf("\n");
-	printf("%d",printf("*%c*%s%r rc%%=", 'A', "aa"));
+	//printf("%d",printf("[%p]=", ptr));
 	printf("\n");
+
+
 	return(0);
 }
