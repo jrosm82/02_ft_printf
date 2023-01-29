@@ -87,7 +87,7 @@ int	pnt_decide(char c, va_list ap)
 	else if (c == 's') // Prints a string (as defined by the common C convention).
 		prn_cnt += ft_putstr(va_arg(ap, char *));
 	else if (c == 'p') // The void * pointer argument has to be printed in hexadecimal format
-		c = c;	
+	{}		
 	else if (c == 'i' || c == 'd') // Prints an integer in base 10.
 	{
 		n = va_arg(ap, int);
@@ -95,11 +95,11 @@ int	pnt_decide(char c, va_list ap)
 		ft_putint(n);
 	}
 	else if (c == 'u') // Prints an unsigned decimal (base 10) number.
-		c = c;
-	else if (c == 'x') // Prints a number in hexadecimal (base 16) lowercase format
-		c = c;
+	{}		
+	else if (c == 'x') // Prints a number in hexadecimal (base 16) lowercase format	
+	{}	
 	else if (c == 'X') // Prints a number in hexadecimal (base 16) uppercase format.
-		c = c;
+	{}		
 	else if (c == '%') // Prints a percent sign.
 		prn_cnt += ft_putchar('%');
 	else
@@ -141,7 +141,7 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (prn_cnt);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -159,4 +159,4 @@ int	main(void)
 
 
 	return(0);
-}
+}*/
