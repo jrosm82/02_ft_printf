@@ -20,10 +20,11 @@ INCLUDES=./
 
 all: $(NAME)
 
-$(NAME): $(SRCS) printf.h
+$(NAME): $(SRCS) ft_printf.h
 	@cc -Wall -Wextra -Werror -I$(INCLUDES) -c $(SRCS)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
+
 
 clean:
 	@/bin/rm -f $(OBJECTS)
