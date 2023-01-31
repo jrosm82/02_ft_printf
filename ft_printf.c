@@ -38,7 +38,7 @@ static int	int_len(int nbr)
 
 	pos = 0;
 	if (nbr == -2147483648)
-		return (10);
+		return (11);
 	if (nbr == 0)
 		return (1);
 	if (nbr < 0)
@@ -52,6 +52,33 @@ static int	int_len(int nbr)
 		pos++;
 	}
 	return (pos);
+}
+
+static int	uint_len(unsigned int nbr)
+{
+	int	pos;
+
+	pos = 0;
+
+	if (nbr == 0)
+		return (1);	
+	while (nbr > 0)
+	{
+		nbr = nbr / 10;
+		pos++;
+	}
+	return (pos);
+}
+
+void	ft_putuint(unsigned int n)
+{
+	if (n >= 10)
+	{
+		ft_putuint(n / 10);
+		ft_putuint(n % 10);
+	}
+	else
+		ft_putchar(n + '0');
 }
 
 void	ft_putint(int n)
@@ -80,6 +107,7 @@ int	pnt_decide(char c, va_list ap)
 {
 	int	prn_cnt;
 	int	n;
+	int	un;
 
 	prn_cnt = 0;
 	if (c == 'c') // Prints a single character.
@@ -95,7 +123,11 @@ int	pnt_decide(char c, va_list ap)
 		ft_putint(n);
 	}
 	else if (c == 'u') // Prints an unsigned decimal (base 10) number.
-	{}		
+	{
+		un = va_arg(ap,unsigned int);
+		prn_cnt += uint_len(un);
+		ft_putuint(un);
+	}	
 	else if (c == 'x') // Prints a number in hexadecimal (base 16) lowercase format	
 	{}	
 	else if (c == 'X') // Prints a number in hexadecimal (base 16) uppercase format.
@@ -146,15 +178,16 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	int	pnt = 2147483647;
+	int	pnt = -1;
 
 	int	*ptr = &pnt;
-
-	printf("%d",ft_printf("*%c**%d**%i**%s%r rc%%=", 'A',pnt, pnt, "aa"));
+	
+	printf("%d",ft_printf("%u=",-1));
 	printf("\n");
-	   printf("%d",printf("*%c**%d**%i**%s%r rc%%=", 'A',pnt, pnt, "aa"));
+	printf("%d",printf("%u=", -1));
 	printf("\n");
 	//printf("%d",printf("[%p]=", ptr));
+	
 	printf("\n");
 
 
