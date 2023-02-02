@@ -6,7 +6,7 @@
 /*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/02 16:05:52 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:18:51 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ int count_digits(uintptr_t value) {
     return count;
 }
 
-char	*cnv_hex(uintptr_t a)
-{	
-	int	index;	
+char	*cnv_hex(uintptr_t a, int low)
+{
 
-	char	*hex = "0123456789abcdef";
+	char	*hexlower = "0123456789abcdef";
+	char	*hexupper = "0123456789abcdef";
 		
 	int i = count_digits(a);
 	char *ptr = (char *)malloc(sizeof(char) * (i + 1));
@@ -126,11 +126,25 @@ char	*cnv_hex(uintptr_t a)
 	ptr[i] = '\0';
 	i--;
 
-	while (i >= 0)
+	if (low == 1)
 	{
-		ptr[i] = hex[a % 16];
-		a = a / 16;
-		i--;
+		while (i >= 0)
+		{
+			ptr[i] = hexlower[a % 16];
+			a = a / 16;
+			i--;
+		}
+	}
+	else
+	{
+		while (i >= 0)
+		{
+			ptr[i] = hexupper[a % 16];
+			a = a / 16;
+			i--;
+		}
+
+
 	}
 
 	return (ptr);
@@ -147,11 +161,11 @@ int	pnt_decide(char c, va_list ap)
 		prn_cnt += ft_putchar(va_arg(ap, int));
 	else if (c == 's') // Prints a string (as defined by the common C convention).
 		prn_cnt += ft_putstr(va_arg(ap, char *));
-	else if (c == 'p') // The void * pointer argument has to be printed in hexadecimal format
+	else if (c == 'p') // The void * pointer argument has to be printed in hexlowadecimal format
 	{
 		
 		prn_cnt += ft_putstr("0x");
-		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t)));
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t),1 ));
 
 	}		
 	else if (c == 'i' || c == 'd') // Prints an integer in base 10.
@@ -166,10 +180,15 @@ int	pnt_decide(char c, va_list ap)
 		prn_cnt += uint_len(un);
 		ft_putuint(un);
 	}	
-	else if (c == 'x') // Prints a number in hexadecimal (base 16) lowercase format	
-	{}	
-	else if (c == 'X') // Prints a number in hexadecimal (base 16) uppercase format.
-	{}		
+	else if (c == 'x') // Prints a number in hexlowadecimal (base 16) lowercase format	
+	{
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 1));
+
+	}	
+	else if (c == 'X') // Prints a number in hexlowadecimal (base 16) uppercase format.
+	{
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 1));
+	}		
 	else if (c == '%') // Prints a percent sign.
 		prn_cnt += ft_putchar('%');
 	else
