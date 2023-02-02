@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:11:51 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/01/28 10:25:01 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/01/30 10:48:28 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdio.h>
+# include <stdio.h>
+# include <stdint.h>
+# include <stdlib.h>
 
-int	ft_printf(const char *, ...);
+int	ft_printf(const char *str, ...);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/01/28 16:02:23 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:16:25 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,39 @@ void	ft_putint(int n)
 		ft_putchar(n + '0');
 }
 
+int count_digits(uintptr_t value) {
+    
+    int count = 0;
+    while (value > 0) 
+    {
+        value = value / 16;
+        count++;
+    }
+    return count;
+}
+
+char	*cnv_hex(uintptr_t a)
+{	
+	int	index;	
+
+	char	*hex = "0123456789abcdef";
+		
+	int i = count_digits(a);
+	char *ptr = (char *)malloc(sizeof(char) * (i + 1));
+
+	ptr[i] = '\0';
+	i--;
+
+	while (i >= 0)
+	{
+		ptr[i] = hex[a % 16];
+		a = a / 16;
+		i--;
+	}
+
+	return (ptr);
+}
+
 int	pnt_decide(char c, va_list ap)
 {
 	int	prn_cnt;
@@ -87,7 +120,12 @@ int	pnt_decide(char c, va_list ap)
 	else if (c == 's') // Prints a string (as defined by the common C convention).
 		prn_cnt += ft_putstr(va_arg(ap, char *));
 	else if (c == 'p') // The void * pointer argument has to be printed in hexadecimal format
-	{}		
+	{
+		
+		prn_cnt += ft_putstr("0x");
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t)));
+
+	}		
 	else if (c == 'i' || c == 'd') // Prints an integer in base 10.
 	{
 		n = va_arg(ap, int);
@@ -150,9 +188,9 @@ int	main(void)
 
 	int	*ptr = &pnt;
 
-	printf("%d",ft_printf("*%c**%d**%i**%s%r rc%%=", 'A',pnt, pnt, "aa"));
+	printf("%d",ft_printf("*%c**%d**%i**%s rc%%***%p=", 'A',pnt, pnt, "aa", ptr));
 	printf("\n");
-	   printf("%d",printf("*%c**%d**%i**%s%r rc%%=", 'A',pnt, pnt, "aa"));
+	   printf("%d",printf("*%c**%d**%i**%s rc%%***%p=", 'A',pnt, pnt, "aa", ptr));
 	printf("\n");
 	//printf("%d",printf("[%p]=", ptr));
 	printf("\n");
