@@ -6,7 +6,7 @@
 /*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/02 16:18:51 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:41:17 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*cnv_hex(uintptr_t a, int low)
 {
 
 	char	*hexlower = "0123456789abcdef";
-	char	*hexupper = "0123456789abcdef";
+	char	*hexupper = "0123456789ABCDEF";
 		
 	int i = count_digits(a);
 	char *ptr = (char *)malloc(sizeof(char) * (i + 1));
@@ -145,8 +145,7 @@ char	*cnv_hex(uintptr_t a, int low)
 		}
 
 
-	}
-
+	}	
 	return (ptr);
 }
 
@@ -187,7 +186,7 @@ int	pnt_decide(char c, va_list ap)
 	}	
 	else if (c == 'X') // Prints a number in hexlowadecimal (base 16) uppercase format.
 	{
-		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 1));
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 0));
 	}		
 	else if (c == '%') // Prints a percent sign.
 		prn_cnt += ft_putchar('%');
@@ -230,18 +229,18 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (prn_cnt);
 }
-/*
+
 #include <stdio.h>
 
 int	main(void)
 {
-	int	pnt = -1;
+	int	pnt = -2147483648;
 
 	int	*ptr = &pnt;
 
-	printf("%d",ft_printf("*%c**%d**%i**%s rc%%***%p=", 'A',pnt, pnt, "aa", ptr));
+	printf("%d",ft_printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, -2147483648, 150378));
 	printf("\n");
-	   printf("%d",printf("*%c**%d**%i**%s rc%%***%p=", 'A',pnt, pnt, "aa", ptr));
+	   printf("%d",printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, -2147483648, 150378));
 	printf("\n");
 	//printf("%d",printf("[%p]=", ptr));
 	
@@ -249,4 +248,4 @@ int	main(void)
 
 
 	return(0);
-}*/
+}
