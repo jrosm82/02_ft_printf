@@ -13,7 +13,8 @@ a.out
 # and file
 .vscode/
 
+#pft ignore
+pft/
 
-pft/
-pft/
-pft/
+#printfTester
+printfTester/
