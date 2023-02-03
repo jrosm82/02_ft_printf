@@ -6,7 +6,7 @@
 /*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/03 14:34:51 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:54:51 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ int	ft_putstr(char *s)
 {	
 	int	i;
 	int	cnt;
+	char	c;
 
+		
 	i = 0;
 	cnt = 0;
+	c = NULL;
 	if (!s)
-        	return (0);
+	{
+		cnt += ft_putchar(c);
+	}        	
 	while (s[i] != '\0')
 	{
 		cnt += ft_putchar(s[i]);
