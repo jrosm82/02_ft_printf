@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrosmari <jrosmari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/02 18:41:17 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:34:51 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_putstr(char *s)
 
 	i = 0;
 	cnt = 0;
+	if (!s)
+        	return (0);
 	while (s[i] != '\0')
 	{
 		cnt += ft_putchar(s[i]);
@@ -114,39 +116,45 @@ int count_digits(uintptr_t value) {
     return count;
 }
 
-char	*cnv_hex(uintptr_t a, int low)
+char	*cnv_hex(unsigned int a, int low)
 {
-
+	static char	ptr[25];
 	char	*hexlower = "0123456789abcdef";
 	char	*hexupper = "0123456789ABCDEF";
+
+	if (!a)
+		return (NULL);
 		
 	int i = count_digits(a);
-	char *ptr = (char *)malloc(sizeof(char) * (i + 1));
-
-	ptr[i] = '\0';
-	i--;
-
-	if (low == 1)
+	if (i > 0)
 	{
-		while (i >= 0)
+		ptr[i] = '\0';
+		i--;
+
+		if (low == 1)
 		{
-			ptr[i] = hexlower[a % 16];
-			a = a / 16;
-			i--;
+			while (i >= 0)
+			{
+				ptr[i] = hexlower[a % 16];
+				a = a / 16;
+				i--;
+			}
 		}
+		else
+		{
+			while (i >= 0)
+			{
+				ptr[i] = hexupper[a % 16];
+				a = a / 16;
+				i--;
+			}
+
+
+		}	
+		return (ptr);
 	}
 	else
-	{
-		while (i >= 0)
-		{
-			ptr[i] = hexupper[a % 16];
-			a = a / 16;
-			i--;
-		}
-
-
-	}	
-	return (ptr);
+		return (NULL);
 }
 
 int	pnt_decide(char c, va_list ap)
@@ -161,11 +169,9 @@ int	pnt_decide(char c, va_list ap)
 	else if (c == 's') // Prints a string (as defined by the common C convention).
 		prn_cnt += ft_putstr(va_arg(ap, char *));
 	else if (c == 'p') // The void * pointer argument has to be printed in hexlowadecimal format
-	{
-		
+	{		
 		prn_cnt += ft_putstr("0x");
 		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t),1 ));
-
 	}		
 	else if (c == 'i' || c == 'd') // Prints an integer in base 10.
 	{
@@ -180,14 +186,9 @@ int	pnt_decide(char c, va_list ap)
 		ft_putuint(un);
 	}	
 	else if (c == 'x') // Prints a number in hexlowadecimal (base 16) lowercase format	
-	{
-		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 1));
-
-	}	
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 1));	
 	else if (c == 'X') // Prints a number in hexlowadecimal (base 16) uppercase format.
-	{
-		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 0));
-	}		
+		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t), 0));		
 	else if (c == '%') // Prints a percent sign.
 		prn_cnt += ft_putchar('%');
 	else
@@ -196,9 +197,6 @@ int	pnt_decide(char c, va_list ap)
 		prn_cnt += ft_putchar(c);	
 	}	
 	return (prn_cnt);
-
-//cspdiuxX%
-
 }
 
 
@@ -229,7 +227,7 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (prn_cnt);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -248,4 +246,4 @@ int	main(void)
 
 
 	return(0);
-}
+}*/
