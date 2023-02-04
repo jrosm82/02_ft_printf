@@ -6,30 +6,29 @@
 /*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/03 14:54:51 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/04 07:34:44 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
+static int	ft_putchar(int c)
 {
 	return (write(1, &c, 1));	
 }
 
-int	ft_putstr(char *s)
+static int	ft_putstr(char *s)
 {	
 	int	i;
 	int	cnt;
-	char	c;
-
 		
 	i = 0;
 	cnt = 0;
-	c = NULL;
-	if (!s)
+	
+	if (s == NULL)
 	{
-		cnt += ft_putchar(c);
+		cnt += ft_putstr("(null)");
+		return (cnt);
 	}        	
 	while (s[i] != '\0')
 	{
@@ -127,8 +126,8 @@ char	*cnv_hex(unsigned int a, int low)
 	char	*hexlower = "0123456789abcdef";
 	char	*hexupper = "0123456789ABCDEF";
 
-	if (!a)
-		return (NULL);
+	if (a == 0)
+		return ("0");
 		
 	int i = count_digits(a);
 	if (i > 0)
@@ -241,12 +240,15 @@ int	main(void)
 
 	int	*ptr = &pnt;
 
-	printf("%d",ft_printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, -2147483648, 150378));
+	printf("%d",ft_printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, 2147483647, 150378));
 	printf("\n");
-	   printf("%d",printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, -2147483648, 150378));
+	   printf("%d",printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, 2147483647, 150378));
 	printf("\n");
-	//printf("%d",printf("[%p]=", ptr));
-	
+
+	char *p = NULL;
+	printf("%d", printf("****%c****[%s]****%s*****%s***=", '\0', p, "", " "));
+	printf("\n");
+	printf("%d", ft_printf("****%c****[%s]****%s*****%s***=", '\0', p, "", " "));	
 	printf("\n");
 
 
