@@ -6,7 +6,7 @@
 /*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/04 07:34:44 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/04 10:08:56 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_putint(int n)
 		ft_putchar(n + '0');
 }
 
-int count_digits(uintptr_t value) {
+int count_hexdigits(uintptr_t value) {
     
     int count = 0;
     while (value > 0) 
@@ -120,6 +120,55 @@ int count_digits(uintptr_t value) {
     return count;
 }
 
+char	*print_p(uintptr_t value)
+{
+	static char	ptr[25];
+	char	*hexlower = "0123456789abcdef";
+
+	if (value == 0)	
+		return ("(nil)");
+
+	int i = count_hexdigits(value);
+	ptr[0] = '0';
+	ptr[1] = 'x';
+	ptr[i + 2] = '\0';
+	i--;
+	while (i >= 0)
+	{
+		ptr[i + 2] = hexlower[value % 16];
+		value = value / 16;
+		i--;
+	}
+	return (ptr);
+}
+
+/*char	*print_p(uintptr_t value)
+{
+	static char	ptr[25];
+	char	*hexlower = "0123456789abcdef";
+
+	if (value == 0)	
+		return ("(nil)");
+
+	
+	int i = count_hexdigits(value) + 2;
+	if (i + 2 > 2)
+	{
+		ptr[0] = '0';
+		ptr[1] = 'x';
+		ptr[i] = '\0';
+		i--;
+		while (i + 2 >= 2)
+		{
+			ptr[i] = hexlower[value % 16];
+			value = value / 16;
+			i--;
+		}
+	}
+	return (ptr);
+}*/
+
+
 char	*cnv_hex(unsigned int a, int low)
 {
 	static char	ptr[25];
@@ -129,7 +178,7 @@ char	*cnv_hex(unsigned int a, int low)
 	if (a == 0)
 		return ("0");
 		
-	int i = count_digits(a);
+	int i = count_hexdigits(a);
 	if (i > 0)
 	{
 		ptr[i] = '\0';
@@ -174,8 +223,8 @@ int	pnt_decide(char c, va_list ap)
 		prn_cnt += ft_putstr(va_arg(ap, char *));
 	else if (c == 'p') // The void * pointer argument has to be printed in hexlowadecimal format
 	{		
-		prn_cnt += ft_putstr("0x");
-		prn_cnt += ft_putstr(cnv_hex(va_arg(ap, uintptr_t),1 ));
+		
+		prn_cnt += ft_putstr(print_p(va_arg(ap, uintptr_t)));
 	}		
 	else if (c == 'i' || c == 'd') // Prints an integer in base 10.
 	{
@@ -240,17 +289,22 @@ int	main(void)
 
 	int	*ptr = &pnt;
 
-	printf("%d",ft_printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, 2147483647, 150378));
-	printf("\n");
 	   printf("%d",printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, 2147483647, 150378));
+	printf("\n");
+	printf("%d",ft_printf("*[%c]**[%d]**[%i]**[%s] rc[%%]***[%p]****[%x]**[%X]*=", 'A',pnt, pnt, "aa", ptr, 2147483647, 150378));
 	printf("\n");
 
 	char *p = NULL;
-	printf("%d", printf("****%c****[%s]****%s*****%s***=", '\0', p, "", " "));
+	   printf("%d", printf("****%c****[%s]****%s*****%s***=", '\0', p, "", " "));
 	printf("\n");
 	printf("%d", ft_printf("****%c****[%s]****%s*****%s***=", '\0', p, "", " "));	
 	printf("\n");
 
+	int	a = 0;
+	   printf("%d", printf(" %p %p ", a, a));
+	printf("\n");
+	printf("%d", ft_printf(" %p %p ", a, a));
+	printf("\n");
 
 	return(0);
 }*/
