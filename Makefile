@@ -6,15 +6,15 @@
 #    By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 20:33:20 by jrosmari          #+#    #+#              #
-#    Updated: 2023/02/02 16:26:24 by jrosmari         ###   ########.fr        #
+#    Updated: 2023/02/04 15:09:47 by jrosmari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=libftprintf.a
 
-SRCS=ft_printf.c 
+SRCS=ft_printf.c ft_printchars.c ft_printnbrs.c ft_printhexes.c
 
-OBJECTS=ft_printf.o 
+OBJECTS=ft_printf.o ft_printchars.o ft_printnbrs.o ft_printhexes.o
 
 INCLUDES=./
 
