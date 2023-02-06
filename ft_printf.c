@@ -6,7 +6,7 @@
 /*   By: jrosmari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:14:43 by jrosmari          #+#    #+#             */
-/*   Updated: 2023/02/04 17:15:10 by jrosmari         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:50:29 by jrosmari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (prn_cnt);
 }
-/*
+
 #include <stdio.h>
 
 int	main(void)
@@ -77,40 +77,46 @@ int	main(void)
 	int	a = 0;
 	unsigned long long b = 0;
 	char *p = NULL;
+	unsigned int u = 4294967295;
 
-	   printf("%d",printf("   PRINTF->*[%c]**[%d]* =",'A',pnt));
+	printf("%d",printf("   PRINTF->*[u-%u]**[u-%u]* =", u, 0));
 	printf("\n");
-	printf("%d",ft_printf("FT_PRINTF->*[%c]**[%d]* =",'A',pnt));
+	printf("%d",ft_printf("FT_PRINTF->*[u-%u]**[u-%u]* =", u, 0));
 	printf("\n\n");
 
-	   printf("%d",printf("   PRINTF->**[%i]**[%s] =", pnt, "aa"));
+	   printf("%d",printf("   PRINTF->*[c-%c]**[d-%d]* =",'A',pnt));
 	printf("\n");
-	printf("%d",ft_printf("FT_PRINTF->**[%i]**[%s] =", pnt, "aa"));
+	printf("%d",ft_printf("FT_PRINTF->*[c-%c]**[d-%d]* =",'A',pnt));
 	printf("\n\n");
 
-	   printf("%d",printf("   PRINTF->* **[%%]***[%p]***=", ptr));
+	   printf("%d",printf("   PRINTF->**[i-%i]**[s-%s] =", pnt, "aa"));
 	printf("\n");
-	printf("%d",ft_printf("FT_PRINTF->* **[%%]***[%p]***=", ptr));
+	printf("%d",ft_printf("FT_PRINTF->**[i-%i]**[s-%s] =", pnt, "aa"));
+	printf("\n\n");
+
+	   printf("%d",printf("   PRINTF->* **[pct-%%]***[p-%p]***=", ptr));
+	printf("\n");
+	printf("%d",ft_printf("FT_PRINTF->* **[pct-%%]***[p-%p]***=", ptr));
 	printf("\n\n");
 	
-	   printf("%d",printf("   PRINTF->* **[%x]**[%X]*=", 2147483647, 150378));
+	   printf("%d",printf("   PRINTF->* **[x-%x]**[X-%X]*=", 2147483647, 150378));
 	printf("\n");
-	printf("%d",ft_printf("FT_PRINTF->* **[%x]**[%X]*=", 2147483647, 150378));
+	printf("%d",ft_printf("FT_PRINTF->* **[x-%x]**[X-%X]*=", 2147483647, 150378));
 	printf("\n\n");
 
-	   printf("%d", printf("   PRINTF->****[%c]****[%s]*****=", '\0', p));
+	   printf("%d", printf("   PRINTF->****[c-%c]****[s-%s]*****=", '\0', p));
 	printf("\n");
-	printf("%d", ft_printf("FT_PRINTF->****[%c]****[%s]*****=", '\0', p));	
+	printf("%d", ft_printf("FT_PRINTF->****[c-%c]****[s-%s]*****=", '\0', p));	
 	printf("\n\n");
 
-	   printf("%d", printf("   PRINTF->******[%s]*****[%s]***=", "", " "));
+	   printf("%d", printf("   PRINTF->******[s-%s]*****[s-%s]***=", "", " "));
 	printf("\n");
-	printf("%d", ft_printf("FT_PRINTF->******[%s]*****[%s]***=", "", " "));	
+	printf("%d", ft_printf("FT_PRINTF->******[s-%s]*****[s-%s]***=", "", " "));	
 	printf("\n\n");
 
-	   printf("%d", printf("   PRINTF-> [%p] [%p]  =", &a, b));
+	   printf("%d", printf("   PRINTF-> [p-%p] [p-%p]  =", &a, b));
 	printf("\n");
-	printf("%d", ft_printf("FT_PRINTF-> [%p] [%p]  =", &a, b));
+	printf("%d", ft_printf("FT_PRINTF-> [p-%p] [p-%p]  =", &a, b));
 	printf("\n\n");
 	return(0);
-}*/
+}
